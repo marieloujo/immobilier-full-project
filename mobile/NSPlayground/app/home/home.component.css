@@ -1,0 +1,51 @@
+ActionBar{
+  background-color:transparent;
+}
+
+/* #home-page-background{        
+    background: linear-gradient(to bottom, #44557f 15%, #f8f8f8 15%);
+} */
+
+.album-image{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.home-panel{
+    vertical-align: center; 
+    font-size: 20;
+    margin: 15;
+}
+
+.description-label{
+    margin-bottom: 15;
+}
+
+#searchRow{
+    margin-top: 20;
+}
+
+.cardStyle {
+    background-color: #fff;
+    color: rgb(43, 43, 43);
+}
+
+.cardContent {
+    padding: 20;
+    font-weight: bold;
+    font-size: 30;
+}
+
+
+.card {
+    background-color: #fff;
+    color: #4d4d4d;
+    margin: 15 15 0;
+}
+.card-layout {
+    padding: 20;
+}
+.card-layout .h1 {
+    margin-bottom: 15;
+}

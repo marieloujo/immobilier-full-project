@@ -1,0 +1,156 @@
+
+<div class="main-content">
+  <div class="container-fluid">
+
+    <button class="btn btn-primary float-right mb-5 btn-round" (click)="navigateToCreate()">
+      Ajouter un article
+    </button>
+
+
+
+    <div class="row container col-md-12 justify-content-center">
+
+
+      <div class="col-md-12 bg-rose" *ngIf="errorChargement">
+        <div class="alert alert-danger" role="alert">
+          {{environnement.MESSAGE_ERREUR_CHARGEMENT}}
+        </div>
+      </div>
+
+      <!--<div class="col-md-12" *ngIf="erreurInterne"
+           [ngClass]="erreurInterne == true ? 'alert alert-danger alert-dismissible fade show':''" role="alert">
+          <strong>Erreur interne !</strong> {{environnement.MESSAGE_ERREUR_INTERNE}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+
+      <div class="col-md-12 alert alert-success alert-dismissible fade show" *ngIf="!erreurInterne && patenaireCreate"
+           role="alert">
+
+        <strong *ngIf="!isUpdate">Partenaire crée avec succès</strong>
+        <strong *ngIf="isUpdate">Partenaire modifier avec succès</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+      </div>
+
+
+      <div class="col-md-12 alert alert-danger alert-dismissible fade show" *ngIf="erreurInterne && !patenaireCreate"
+           role="alert">
+
+        <strong *ngIf="!isUpdate">Echec de création du partenaire, veuillez réessayer ultérieurement</strong>
+        <strong *ngIf="isUpdate">Echec de modification du partenaire, veuillez réessayer ultérieurement</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+      </div>
+
+      <div class="col-md-12 alert alert-success alert-dismissible fade show" *ngIf="!erreurInterne && patenaireDelete"
+           role="alert">
+
+        <strong>Utilisateur supprimé avec succès</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+      </div>-->
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card card-nav-tabs">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title ">Simple Table</h4>
+            <div class="nav-tabs-navigation">
+              <div class="nav-tabs-wrapper">
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                  <li class="nav-item">
+                    <a class="nav-link active" href="#home" data-toggle="tab">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#updates" data-toggle="tab">Updates</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#history" data-toggle="tab">History</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="card-body bg-white">
+            <div class="tab-content text-center">
+              <div class="tab-pane active" id="home">
+                <div class="table-responsive">
+                  <table class="table table-shopping">
+                    <thead class="text-primary">
+                    <tr>
+                      <th class="text-center"></th>
+                      <th>Article</th>
+                      <th class="th-description">Adresse</th>
+                      <th class="">Pix</th>
+                      <th class="">Catégorie</th>
+                      <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let article of articles.articleList">
+                      <td>
+                        <div class="img-container">
+                          <img src="{{article.illustrations[0].url}}" alt="...">
+                        </div>
+                      </td>
+                      <td class="td-name">
+                        <a href="#jacket">{{article.libelle}}</a>
+                        <br><small class="">{{article.description}}</small>
+                      </td>
+                      <td>{{article.adresse}}</td>
+                      <td class="">
+                        <small>&#x20AC;</small>{{article.prix}}
+                      </td>
+                      <td class="">
+                        {{article.categorie}}
+                      </td>
+                      <td class="td-actions">
+                        <button type="button" rel="tooltip" title="Voir profil" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target=".view-profil-modal">
+                          <i class="material-icons">visibility</i>
+                        </button>
+
+                        <button type="button" rel="tooltip" title="Modifier" class="btn btn-primary btn-link btn-sm">
+                          <i class="material-icons">edit</i>
+                        </button>
+
+                        <button type="button" rel="tooltip" title="Supprimer" class="btn btn-danger btn-link btn-sm">
+                          <i class="material-icons">close</i>
+                        </button>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="updates">
+                <p> I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that&#x2019;s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. I think that&#x2019;s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. </p>
+              </div>
+              <div class="tab-pane" id="history">
+                <p> I think that&#x2019;s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at. I will be the leader of a company that ends up being worth billions of dollars, because I got the answers. I understand culture. I am the nucleus. I think that&#x2019;s a responsibility that I have, to push possibilities, to show people, this is the level that things could be at.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+
+</div>
+
+
+
+
+

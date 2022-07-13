@@ -1,0 +1,466 @@
+
+<div class="main-content">
+  <div class="container-fluid">
+
+    <button class="btn btn-primary float-right mb-5 btn-round" (click)="openCreateDialog()">
+      Ajouter un partenaire
+    </button>
+
+    <div class="row container col-md-12 justify-content-center">
+
+
+      <div class="col-md-12 bg-rose" *ngIf="errorChargement">
+        <div class="alert alert-danger" role="alert">
+          {{environnement.MESSAGE_ERREUR_CHARGEMENT}}
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="row" >
+      <div class="container-fluid">
+        <div class="card card-nav-tabs">
+
+          <div class="card-header card-header-primary">
+            <h4 class="card-title ">Liste des partenaires</h4>
+            <div class="nav-tabs-navigation">
+              <div class="nav-tabs-wrapper">
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                  <li class="nav-item">
+                    <a class="nav-link active" href="#all" data-toggle="tab">Tous</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#person" data-toggle="tab">Personnes</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#entreprise" data-toggle="tab">Entreprise</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body bg-white">
+            <div class="tab-content">
+
+              <div class="tab-pane active" id="all">
+                <div class="table-responsive">
+                  <table class="table" id="partenaire-list">
+                    <thead class="text-primary">
+                    <tr>
+                      <th class="font-weight-bold ">Nom prénoms</th>
+                      <th class="font-weight-bold ">Numéro</th>
+                      <th class="font-weight-bold ">Email</th>
+                      <th class="font-weight-bold ">Adresse</th>
+                      <th class="font-weight-bold ">Personne physique</th>
+                      <th class="font-weight-bold ">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let partenaire of partenaires">
+                      <td>{{partenaire.nomPrenoms}}</td>
+                      <td>{{partenaire.telephone}}</td>
+                      <td>{{partenaire.email}}</td>
+                      <td>{{partenaire.adresse}}</td>
+                      <td class="text-center">
+                        <div class="form-group">
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" disabled type="checkbox" value="" *ngIf="partenaire.physicalPerson" checked>
+                              <span class="form-check-sign">
+                                                                            <span class="check"></span>
+                                                                        </span>
+                            </label>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="td-actions text-center">
+                        <button type="button" rel="tooltip" title="Voir profil" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target=".view-profil-modal">
+                          <i class="material-icons">visibility</i>
+                        </button>
+
+                        <button type="button" rel="tooltip" title="Modifier" (click)="bingData(partenaire)" class="btn btn-primary btn-link btn-sm">
+                          <i class="material-icons">edit</i>
+                        </button>
+
+                        <button type="button" rel="tooltip" title="Supprimer" (click)="openDeleteModal(partenaire.id)" class="btn btn-danger btn-link btn-sm">
+                          <i class="material-icons">close</i>
+                        </button>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="tab-pane" id="person">
+                <div class="table-responsive">
+                  <table class="table" id="partenaire-list-persone">
+                    <thead class=" text-primary">
+                    <tr>
+                      <th class="font-weight-bold">Nom prénoms</th>
+                      <th class="font-weight-bold">Numéro</th>
+                      <th class="font-weight-bold">Email</th>
+                      <th class="font-weight-bold">Adresse</th>
+                      <th class="font-weight-bold">Personne physique</th>
+                      <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let partenaire of partenairesPersonne">
+                      <td>{{partenaire.nomPrenoms}}</td>
+                      <td>{{partenaire.telephone}}</td>
+                      <td>{{partenaire.email}}</td>
+                      <td>{{partenaire.adresse}}</td>
+                      <td class="text-center">
+                        <div class="form-group">
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" disabled type="checkbox" value="" *ngIf="partenaire.physicalPerson" checked>
+                              <span class="form-check-sign">
+                                                                            <span class="check"></span>
+                                                                        </span>
+                            </label>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="td-actions text-center">
+                        <button type="button" rel="tooltip" title="Voir profil" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target=".view-profil-modal">
+                          <i class="material-icons">visibility</i>
+                        </button>
+
+                        <button type="button" rel="tooltip" title="Modifier" (click)="bingData(partenaire)" class="btn btn-primary btn-link btn-sm">
+                          <i class="material-icons">edit</i>
+                        </button>
+
+                        <button type="button" rel="tooltip" title="Supprimer" (click)="openDeleteModal(partenaire.id)" class="btn btn-danger btn-link btn-sm">
+                          <i class="material-icons">close</i>
+                        </button>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="tab-pane" id="entreprise">
+                <div class="table-responsive">
+                  <table class="table" id="partenaire-list-entreprise">
+                    <thead class=" text-primary">
+                    <tr>
+                      <th class="font-weight-bold">Nom prénoms</th>
+                      <th class="font-weight-bold">Numéro</th>
+                      <th class="font-weight-bold">Email</th>
+                      <th class="font-weight-bold">Adresse</th>
+                      <th class="font-weight-bold">Personne physique</th>
+                      <th class="font-weight-bold">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let partenaire of partenairesEntreprise">
+                      <td>{{partenaire.nomPrenoms}}</td>
+                      <td>{{partenaire.telephone}}</td>
+                      <td>{{partenaire.email}}</td>
+                      <td>{{partenaire.adresse}}</td>
+                      <td class="text-center">
+                        <div class="form-group">
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" disabled type="checkbox" value="" *ngIf="partenaire.physicalPerson" checked>
+                              <span class="form-check-sign">
+                                                                            <span class="check"></span>
+                                                                        </span>
+                            </label>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="td-actions text-center">
+                        <button type="button" rel="tooltip" title="Voir profil" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target=".view-profil-modal">
+                          <i class="material-icons">visibility</i>
+                        </button>
+
+                        <button type="button" rel="tooltip" title="Modifier" (click)="bingData(partenaire)" class="btn btn-primary btn-link btn-sm">
+                          <i class="material-icons">edit</i>
+                        </button>
+
+                        <button type="button" rel="tooltip" title="Supprimer" (click)="openDeleteModal(partenaire.id)" class="btn btn-danger btn-link btn-sm">
+                          <i class="material-icons">close</i>
+                        </button>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+
+</div>
+
+
+
+
+<!-- Create and update modal -->
+<div class="modal fade modal-add-partenaire" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-login modal-lg">
+    <div class="modal-content">
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="card-title">Ajout d'un nouveau partenaire</h4>
+        </div>
+        <div class="card-body">
+          <form class="container" [formGroup]="formGroupCreate" (ngSubmit)="createPartenaireValidate()">
+
+            <div class="row" *ngIf="isPhysicalPersone">
+
+              <div class="col-md-12" >
+                <div class="form-group"
+                     [ngClass]="formGroupCreate.get('firt_name').errors && formSubmit ? 'has-danger':''">
+
+                  <label class="bmd-label-floating">Nom et prénoms</label>
+                  <input type="text" class="form-control" formControlName="firt_name">
+
+                  <span *ngIf="formSubmit && formGroupCreate.get('firt_name').errors" class="text-danger">
+                    <i class="material-icons form-control-feedback">clear</i>
+                    <small class="form-text text-muted text-danger">{{environnement.MESSAGE_REQUIRED_FISRT_NAME}}</small>
+                  </span>
+
+                </div>
+              </div>
+
+              <!--<div class="col-md-6">
+                  <div class="form-group"
+                       [ngClass]="formGroupCreate.get('last_name').errors && formSubmit ? 'has-danger':''">
+
+                      <label class="bmd-label-floating">Prénoms</label>
+                      <input type="text" class="form-control" formControlName="last_name">
+
+                      <span *ngIf="formSubmit && formGroupCreate.get('last_name').errors " class="text-danger">
+                          <i class="material-icons form-control-feedback">clear</i>
+                          <small class="form-text text-muted text-danger">{{environnement.MESSAGE_REQUIRED_LAST_NAME}}</small>
+                      </span>
+
+                  </div>
+              </div>-->
+
+            </div>
+
+            <div class="row mt-3" *ngIf="!isPhysicalPersone">
+
+              <div class="col-md-6">
+                <div class="form-group" [ngClass]="formGroupCreate.get('entreprise').errors && formSubmit ? 'has-danger':''">
+
+                  <label class="bmd-label-floating">Entreprise</label>
+                  <input type="text" class="form-control" formControlName="entreprise">
+
+                  <span *ngIf="formSubmit && formGroupCreate.get('entreprise').errors " class="text-danger">
+                    <i class="material-icons form-control-feedback">clear</i>
+                    <small class="form-text text-muted text-danger">{{environnement.MESSAGE_REQUIRED_ENTREPRISE}}</small>
+                  </span>
+
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group" [ngClass]="formGroupCreate.get('ifu').errors && formSubmit ? 'has-danger':''">
+
+                  <label class="bmd-label-floating">Numéro ifu</label>
+                  <input type="text" class="form-control" formControlName="ifu">
+
+                  <span *ngIf="formSubmit && formGroupCreate.get('ifu').errors " class="text-danger">
+                    <i class="material-icons form-control-feedback">clear</i>
+                    <small class="form-text text-muted text-danger">{{environnement.MESSAGE_REQUIRED_IFU}}</small>
+                  </span>
+
+                </div>
+              </div>
+
+            </div>
+
+
+            <div class="row mt-3">
+
+              <div class="col-md-6">
+                <div class="form-group" [ngClass]="formGroupCreate.get('telephone').errors && formSubmit ? 'has-danger':''">
+
+                  <label class="bmd-label-floating">Télephone</label>
+                  <input type="number" class="form-control" formControlName="telephone">
+
+                  <span *ngIf="formSubmit && formGroupCreate.get('telephone').errors ">
+                    <i class="material-icons form-control-feedback">clear</i>
+                    <small class="form-text text-muted text-danger" *ngIf="formGroupCreate.get('telephone').errors.required">
+                        {{environnement.MESSAGE_REQUIRED_NUMBER}}
+                    </small>
+                    <small class="form-text text-muted text-danger" *ngIf="!formGroupCreate.get('telephone').errors.required">Numéro invalide</small>
+                  </span>
+
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group" [ngClass]="formGroupCreate.get('email').errors && formSubmit ? 'has-danger':''">
+
+                  <label class="bmd-label-floating">Email</label>
+                  <input type="email"  class="form-control" formControlName="email">
+
+                  <span *ngIf="formSubmit && formGroupCreate.get('email').errors " class="text-danger">
+                    <i class="material-icons form-control-feedback">clear</i>
+                    <small class="form-text text-muted text-danger">{{environnement.MESSAGE_INVALI_EMAIL}}</small>
+                  </span>
+
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="mt-3" [ngClass]="isPhysicalPersone ? 'col-md-6' : 'col-md-12'">
+                <div class="form-group" [ngClass]="formGroupCreate.get('adresse').errors && formSubmit ? 'has-danger':''">
+
+                  <label class="bmd-label-floating">Adress</label>
+                  <input type="text" class="form-control" formControlName="adresse">
+
+                  <span *ngIf="formSubmit && formGroupCreate.get('adresse').errors " class="text-danger">
+                    <i class="material-icons form-control-feedback">clear</i>
+                  </span>
+
+                </div>
+              </div>
+
+              <div class="col-md-6" *ngIf="isPhysicalPersone">
+                <div class="form-group" [ngClass]="formGroupCreate.get('sexe').errors && formSubmit ? 'has-danger':''">
+
+                  <select class="form-control" formControlName="sexe" >
+                    <option value="sexe" disabled>Sexe</option>
+                    <option value="Masculin">Masculin</option>
+                    <option value="Féminin">Féminin</option>
+                  </select>
+
+                  <span *ngIf="formSubmit && formGroupCreate.get('sexe').errors " class="text-danger">
+                    <i class="material-icons form-control-feedback">clear</i>
+                  </span>
+
+                </div>
+              </div>
+
+
+            </div>
+
+            <div class="row mt-3" *ngIf="!isUpdate">
+              <div class="col-md-12">
+                <div class="form-check form-check-radio form-check-inline">
+                  <div class="form-group">
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" (change)="toggleVisibility($event)" checked> Personne physique
+                        <span class="form-check-sign">
+                          <span class="check"></span>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="row mt-3" *ngIf="isUpdate">
+              <div class="col-md-12">
+                <div class="form-check form-check-radio form-check-inline">
+                  <div class="form-group">
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" disabled *ngIf="isPhysicalPersone" checked> Personne physique
+                        <span class="form-check-sign">
+                          <span class="check"></span>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary pull-right">Valider</button>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- View profil modal -->
+<div class="modal fade view-profil-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body container">
+        <div class="card card-profile">
+          <div class="card-avatar">
+            <a href="#pablo">
+              <img class="img" src="assets/img/faces/marc.jpg" />
+            </a>
+          </div>
+          <div class="card-body">
+            <div class="card-category">
+              <span class="card-title font-weight-bold">Joan Detchenou</span> <br>
+              <span class="card-title font-weight-bold">+229 67266867</span> <br>
+              <span class="card-title font-weight-bold">detchenoujoan@gmail.com</span> <br>
+            </div>
+            <hr class="text-gray bg-gray-100">
+            <div class="row col-md-12">
+              <p class="form-text text-muted text-gray">Nombre d'article</p> <br>
+              <span class="text-dark font-weight-bold h-25"> 103 </span>
+            </div>
+            <p class="card-description">
+              Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+            </p>
+            <a href="#pablo" class="btn btn-primary btn-round">Follow</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Delete modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="modalDelete" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Suppression</h4>
+      </div>
+      <form [formGroup]="deleteForm" (ngSubmit)="deleteSubmit()">
+        <input type="hidden" name="id" formControlName="id">
+        <div class="modal-body mx-3">
+          <p class="text-center h4">
+            Voulez vous vraimment supprimer le partenaire ?
+          </p>
+        </div>
+        <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
+          <button type="submit" class="btn btn-danger btnYesClass" id="btnYes">Oui</button>
+          <button type="button" (click)="deleteback()" class="btn btn-primary btnNoClass" id="btnNo" data-dismiss="modal">Non</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+

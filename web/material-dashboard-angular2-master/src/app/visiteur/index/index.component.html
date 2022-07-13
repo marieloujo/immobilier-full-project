@@ -1,0 +1,636 @@
+
+<div class="header-2">
+
+  <nav class="navbar navbar-color-on-scroll navbar-transparent fixed-top  navbar-expand-lg"
+       color-on-scroll="100" id="sectionsNav">
+
+    <div class="container">
+
+      <div class="navbar-translate">
+        <a class="navbar-brand" href="index.html">LOGO</a>
+        <button type="button" class="ml-auto navbar-toggler" data-toggle="collapse" data-target="#navigation-example2">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+
+      <div class="collapse navbar-collapse" id="navigation-example2">
+
+        <ul class="navbar-nav navbar-center ml-auto">
+          <li class="nav-item">
+            <a routerLink="/" class="nav-link">Acceuil</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/apropos" class="nav-link">A propos</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/produits" class="nav-link">Produits</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/contacts" class="nav-link">Contacts</a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"></li>
+          <li class="nav-item"></li>
+          <li class="nav-item"></li>
+        </ul>
+
+      </div>
+
+    </div>
+  </nav>
+
+  <div class="page-header header-filter" style="background-image: url('../../../assets/img/src/image-background.jpg');">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 ml-auto mr-auto text-center">
+          <h1 class="title"> Lorem ipsum dolor sit amet!</h1>
+          <h4>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis facilisis ultricies arcu, quis luctus mauris convallis ac.Sed feugiat, purus vel semper vehicula, nisi turpis tincidunt lorem, sit amet luctus risus urna in felis. Quisque eget egestas leo.
+          </h4>
+        </div>
+        <div class="col-md-11 ml-auto mr-auto">
+          <div class="card card-raised card-form-horizontal">
+            <div class="card-body ">
+              <form [formGroup]="formGroupSearch" (ngSubmit)="search(0)">
+                <div class="row">
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <input type="text" value="" formControlName="keyWord" placeholder="Mot clé" class="form-control">
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <mat-form-field [ngClass]="formGroupSearch.get('ville').errors && formSubmit ? 'has-danger':''">
+
+                      <mat-label>Ville</mat-label>
+
+                      <mat-select formControlName="ville" >
+                        <mat-option value="0">&#45;&#45;</mat-option>
+                        <mat-option *ngFor="let ville of villeList " [value]="ville.id">
+                          {{ville.libelle}}
+                        </mat-option>
+                      </mat-select>
+
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                    <mat-form-field>
+                      <mat-label>Catégorie</mat-label>
+
+                      <mat-select formControlName="categorie">
+                        <mat-option value=" " >&#45;&#45;</mat-option>
+                        <mat-option *ngFor="let categorie of categories" [value]="categorie.name">
+                          {{categorie.name}}
+                        </mat-option>
+                      </mat-select>
+
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3">
+                    <span id="price-left" class="price-left pull-left" data-currency="">25000</span>
+                    <span id="price-right" class="price-right pull-right" data-currency="">500000</span>
+                    <div class="clearfix"></div>
+                    <div id="sliderRefine" class="slider slider-rose noUi-target noUi-ltr noUi-horizontal"></div>
+                  </div>
+
+                  <div class="col-md-2 float-right mt-3">
+                    <button type="submit" class="btn btn-primary btn-sm">Rechercher</button>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div>
+
+  <div class="section mt-5">
+    <div class="container">
+
+
+      <div class="related-products">
+        <div class="row mb-3">
+          <div class="col-md-8 ml-auto mr-auto text-center">
+            <h2 class="title">Lorem ipsum dolor sit amet</h2>
+            <h5 class="description">
+              Curabitur eu massa eget est suscipit interdum id sed nisi. Curabitur augue quam, tincidunt ac elementum quis, gravida ac dolor. Curabitur aliquam non lorem at laoreet.
+            </h5>
+          </div>
+        </div>
+
+        <ul *ngIf="!isSearch" class="nav nav-pills nav-pills-primary nav justify-content-center" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#link1" (click)="getArticle(0)" role="tablist" aria-expanded="true">Tous</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#link2" role="tablist" (click)="getArticleInRent(0)" aria-expanded="false">Location</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#link3" role="tablist" (click)="getArticleInnotRent(0)" aria-expanded="false">Vente</a>
+          </li>
+        </ul>
+
+        <div *ngIf="!isSearch" class="tab-content tab-space mt-4">
+
+          <div class="tab-pane active" id="link1" aria-expanded="true">
+            <div class="container-fluid">
+
+              <div class="row" *ngIf="articles != undefined || articles != null">
+                <a class="col-lg-4 col-md-6" *ngFor="let article of articles.articleList" routerLink="produit/{{article.id}}">
+                      <div class="card card-product">
+
+                        <div class="card-header card-header-image">
+                          <a>
+                            <img class="img img-container img-fluid" style="height: 300px;" src="{{article.illustrations[0].url}}">
+                          </a>
+                        </div>
+
+                        <div class="card-body">
+                          <h4 class="card-title">{{article.libelle}}</h4>
+
+                          <div class="text-center mb-2">
+                            <i class="fas fa-map-marker-alt fa-lg"></i>
+                            <span class="ml-3 text-dark font-weight-normal text-truncate">{{article.adresse}}</span>
+                          </div>
+
+                          <div class="text-justify card-description">
+                            {{article.description.substring(0, 200) + " ..."}}
+                          </div>
+
+                          <div class="row container-fluid col-md-12 mt-4">
+
+                            <div class="col" rel="tooltip" data-original-title="Nombre de chambre" *ngIf="article.nbChambre != null">
+                              <i class="fas fa-bed fa-lg"></i>
+                              <span class="ml-2 font-weight-bold">{{article.nbChambre}}</span>
+                            </div>
+
+                            <div class="col" rel="tooltip" data-original-title="Nombre de douche" *ngIf="article.nbChambre != null">
+                              <i class="fas fa-bath fa-lg"></i>
+                              <span class="ml-2 font-weight-bold">{{article.nbDouche}}</span>
+                            </div>
+
+                            <div class="col" *ngIf="article.surface != null">
+                              <i class="fas fa-vector-square fa-lg" rel="tooltip" data-original-title="Superficie"></i>
+                              <span class="ml-2 font-weight-bold">{{article.surface}}</span>
+                            </div>
+
+                          </div>
+                        </div>
+
+                        <div class="card-footer justify-content-between">
+                          <div class="price">
+                            <h4>{{article.prix}}</h4>
+                          </div>
+                          <div class="stats">
+                            <h6 class="text-muted text-rose" *ngIf="article.rent">Location</h6>
+                            <h6 class="text-muted text-rose" *ngIf="!article.rent">Vente</h6>
+                          </div>
+                        </div>
+
+                      </div>
+                </a>
+              </div>
+
+              <!--<nav aria-label="Page navigation example " class="mt-3">
+                <ul class="pagination justify-content-end">
+                  <li class="page-item" >
+                    <a class="page-link" href="#" >Précedent</a>
+                  </li>
+                  <li class="page-item"  [ngClass]="selected === index ? 'active' : ''"
+                      routerLink="#" *ngFor="let index of pages" (click)="paginate(index, true, false)"><a class="page-link">{{index}}</a></li>
+                  <li class="page-item" >
+                    <a class="page-link" href="#">Suivant</a>
+                  </li>
+                </ul>
+              </nav>-->
+
+            </div>
+          </div>
+
+          <div class="tab-pane" id="link2" aria-expanded="false">
+            <div class="container-fluid">
+
+              <div class="row" *ngIf="articlesRent != undefined || articlesRent != null">
+                <div class="col-lg-4 col-md-6" *ngFor="let article of articlesRent.articleList">
+                  <div class="card card-product">
+
+                    <div class="card-header card-header-image">
+                      <a>
+                        <img class="img img-container img-fluid" style="height: 300px;" src="{{article.illustrations[0].url}}">
+                      </a>
+                    </div>
+
+                    <div class="card-body">
+                      <h4 class="card-title">{{article.libelle}}</h4>
+
+                      <div class="text-center mb-2">
+                        <i class="fas fa-map-marker-alt fa-lg"></i>
+                        <span class="ml-3 text-dark font-weight-normal text-truncate">{{article.adresse}}</span>
+                      </div>
+
+                      <div class="text-justify card-description">
+                        {{article.description.substring(0, 200) + " ..."}}
+                      </div>
+
+                      <div class="row container-fluid col-md-12 mt-4">
+
+                        <div class="col" rel="tooltip" data-original-title="Nombre de chambre" *ngIf="article.nbChambre != null">
+                          <i class="fas fa-bed fa-lg"></i>
+                          <span class="ml-2 font-weight-bold">{{article.nbChambre}}</span>
+                        </div>
+
+                        <div class="col" rel="tooltip" data-original-title="Nombre de douche" *ngIf="article.nbChambre != null">
+                          <i class="fas fa-bath fa-lg"></i>
+                          <span class="ml-2 font-weight-bold">{{article.nbDouche}}</span>
+                        </div>
+
+                        <div class="col" *ngIf="article.surface != null">
+                          <i class="fas fa-vector-square fa-lg" rel="tooltip" data-original-title="Superficie"></i>
+                          <span class="ml-2 font-weight-bold">{{article.surface}}</span>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div class="card-footer justify-content-between">
+                      <div class="price">
+                        <h4>{{article.prix}}</h4>
+                      </div>
+                      <div class="stats">
+                        <h6 class="text-muted text-rose" *ngIf="article.rent">Location</h6>
+                        <h6 class="text-muted text-rose" *ngIf="!article.rent">Vente</h6>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <!--<nav aria-label="Page navigation example " class="mt-3">
+                <ul class="pagination justify-content-end">
+                  <li class="page-item" >
+                    <a class="page-link" href="#" >Précedent</a>
+                  </li>
+                  <li class="page-item"  [ngClass]="selected === index ? 'active' : ''"
+                      routerLink="#" *ngFor="let index of pagesRent" (click)="paginate(index, false, true)"><a class="page-link">{{index}}</a></li>
+                  <li class="page-item" >
+                    <a class="page-link" href="#">Suivant</a>
+                  </li>
+                </ul>
+              </nav>-->
+
+            </div>
+          </div>
+
+          <div class="tab-pane" id="link3" aria-expanded="false">
+            <div class="container-fluid">
+
+              <div class="row" *ngIf="articlesNotRent != undefined || articlesNotRent != null">
+                <div class="col-lg-4 col-md-6" *ngFor="let article of articlesNotRent.articleList">
+                  <a href=""  routerLink="produits/{{article.id}}">
+                    <div class="card card-product">
+
+                      <div class="card-header card-header-image">
+                        <a>
+                          <img class="img img-container img-fluid" style="height: 300px;" src="{{article.illustrations[0].url}}">
+                        </a>
+                      </div>
+
+                      <div class="card-body">
+                        <h4 class="card-title">{{article.libelle}}</h4>
+
+                        <div class="text-center mb-2">
+                          <i class="fas fa-map-marker-alt fa-lg"></i>
+                          <span class="ml-3 text-dark font-weight-normal text-truncate">{{article.adresse}}</span>
+                        </div>
+
+                        <div class="text-justify card-description">
+                          {{article.description.substring(0, 200) + " ..."}}
+                        </div>
+
+                        <div class="row container-fluid col-md-12 mt-4">
+
+                          <div class="col" rel="tooltip" data-original-title="Nombre de chambre" *ngIf="article.nbChambre != null">
+                            <i class="fas fa-bed fa-lg"></i>
+                            <span class="ml-2 font-weight-bold">{{article.nbChambre}}</span>
+                          </div>
+
+                          <div class="col" rel="tooltip" data-original-title="Nombre de douche" *ngIf="article.nbChambre != null">
+                            <i class="fas fa-bath fa-lg"></i>
+                            <span class="ml-2 font-weight-bold">{{article.nbDouche}}</span>
+                          </div>
+
+                          <div class="col" *ngIf="article.surface != null">
+                            <i class="fas fa-vector-square fa-lg" rel="tooltip" data-original-title="Superficie"></i>
+                            <span class="ml-2 font-weight-bold">{{article.surface}}</span>
+                          </div>
+
+                        </div>
+                      </div>
+
+                      <div class="card-footer justify-content-between">
+                        <div class="price">
+                          <h4>{{article.prix}}</h4>
+                        </div>
+                        <div class="stats">
+                          <h6 class="text-muted text-rose" *ngIf="article.rent">Location</h6>
+                          <h6 class="text-muted text-rose" *ngIf="!article.rent">Vente</h6>
+                        </div>
+                      </div>
+
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              <!--<nav aria-label="Page navigation example " class="mt-3">
+                <ul class="pagination justify-content-end">
+                  <li class="page-item" >
+                    <a class="page-link" href="#" >Précedent</a>
+                  </li>
+                  <li class="page-item"  [ngClass]="selected === index ? 'active' : ''"
+                      routerLink="#" *ngFor="let index of pagesNotRent" (click)="paginate(index, false, false)"><a class="page-link">{{index}}</a></li>
+                  <li class="page-item" >
+                    <a class="page-link" href="#">Suivant</a>
+                  </li>
+                </ul>
+              </nav>-->
+
+            </div>
+          </div>
+
+        </div>
+
+        <div *ngIf="isSearch" class="container-fluid">
+
+          <div class="row" *ngIf="articlesFiltre != undefined || articlesFiltre != null">
+            <div class="col-lg-4 col-md-6" *ngFor="let article of articlesFiltre.articleList">
+              <div class="card card-product">
+
+                <div class="card-header card-header-image">
+                  <a>
+                    <img class="img img-container img-fluid" style="height: 300px;" src="{{article.illustrations[0].url}}">
+                  </a>
+                </div>
+
+                <div class="card-body">
+                  <h4 class="card-title">{{article.libelle}}</h4>
+
+                  <div class="text-center mb-2">
+                    <i class="fas fa-map-marker-alt fa-lg"></i>
+                    <span class="ml-3 text-dark font-weight-normal text-truncate">{{article.adresse}}</span>
+                  </div>
+
+                  <div class="text-justify card-description">
+                    {{article.description.substring(0, 200) + " ..."}}
+                  </div>
+
+                  <div class="row container-fluid col-md-12 mt-4">
+
+                    <div class="col" rel="tooltip" data-original-title="Nombre de chambre" *ngIf="article.nbChambre != null">
+                      <i class="fas fa-bed fa-lg"></i>
+                      <span class="ml-2 font-weight-bold">{{article.nbChambre}}</span>
+                    </div>
+
+                    <div class="col" rel="tooltip" data-original-title="Nombre de douche" *ngIf="article.nbChambre != null">
+                      <i class="fas fa-bath fa-lg"></i>
+                      <span class="ml-2 font-weight-bold">{{article.nbDouche}}</span>
+                    </div>
+
+                    <div class="col" *ngIf="article.surface != null">
+                      <i class="fas fa-vector-square fa-lg" rel="tooltip" data-original-title="Superficie"></i>
+                      <span class="ml-2 font-weight-bold">{{article.surface}}</span>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="card-footer justify-content-between">
+                  <div class="price">
+                    <h4>{{article.prix}}</h4>
+                  </div>
+                  <div class="stats">
+                    <h6 class="text-muted text-rose" *ngIf="article.rent">Location</h6>
+                    <h6 class="text-muted text-rose" *ngIf="!article.rent">Vente</h6>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!--<nav aria-label="Page navigation example " class="mt-3">
+            <ul class="pagination justify-content-end">
+              <li class="page-item" >
+                <a class="page-link" href="#" >Précedent</a>
+              </li>
+              <li class="page-item"  [ngClass]="selected === index ? 'active' : ''"
+                  routerLink="#" *ngFor="let index of pages" (click)="paginate(index, true, false)"><a class="page-link">{{index}}</a></li>
+              <li class="page-item" >
+                <a class="page-link" href="#">Suivant</a>
+              </li>
+            </ul>
+          </nav>-->
+
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <a href="#" class="btn btn-primary btn-round text-center"> Voir plus ...</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!--     *********     FEATURES 1      *********      -->
+  <!--<div class="section">
+    <div class="container">
+      <div class="features-1">
+        <div class="row">
+          <div class="col-md-8 ml-auto mr-auto">
+            <h2 class="title">Lorem ipsum dolor sit amet</h2>
+            <h5 class="description">
+              Curabitur eu massa eget est suscipit interdum id sed nisi. Curabitur augue quam, tincidunt ac elementum quis, gravida ac dolor. Curabitur aliquam non lorem at laoreet.
+            </h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="info">
+              <div class="icon icon-info">
+                <img src="../../../../assets/img/icons/house-search.png">
+              </div>
+              <h4 class="info-title">Free Chat</h4>
+              <p>Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="info">
+              <div class="icon icon-success">
+                <i class="fa fa-house"></i>
+              </div>
+              <h4 class="info-title">Verified Users</h4>
+              <p>Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="info">
+              <div class="icon icon-danger">
+                <img src="../../../../assets/img/icons/house-visiting.png">
+              </div>
+              <h4 class="info-title">Fingerprint</h4>
+              <p>Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>-->
+  <!--     *********    END FEATURES 1      *********      -->
+
+
+
+   <!-- *********    CONTACT US 1     ********* -->
+    <div class="contactus-1 section-image" style="background-image: url('../../../assets/img/city.jpg')">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-5">
+            <h2 class="title">Get in Touch</h2>
+            <h5 class="description">You need more information? Check what other persons are saying about our product. They are very happy with their purchase.</h5>
+            <div class="info info-horizontal">
+              <div class="icon icon-primary">
+                <i class="material-icons">pin_drop</i>
+              </div>
+              <div class="description">
+                <h4 class="info-title">Find us at the office</h4>
+                <p> Bld Mihail Kogalniceanu, nr. 8,
+                  <br> 7652 Bucharest,
+                  <br> Romania
+                </p>
+              </div>
+            </div>
+            <div class="info info-horizontal">
+              <div class="icon icon-primary">
+                <i class="material-icons">phone</i>
+              </div>
+              <div class="description">
+                <h4 class="info-title">Give us a ring</h4>
+                <p> Michael Jordan
+                  <br> +40 762 321 762
+                  <br> Mon - Fri, 8:00-22:00
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5 ml-auto">
+            <div class="card card-contact">
+              <div >
+                <div class="card-header card-header-raised card-header-primary text-center">
+                  <h4 class="card-title">Nous contacter</h4>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group label-floating is-empty">
+                        <label class="bmd-label-floating">Nom</label>
+                        <input type="text" name="name" class="form-control">
+                        <span class="material-input"></span>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group label-floating is-empty">
+                        <label class="bmd-label-floating">Prénom</label>
+                        <input type="text" name="name" class="form-control">
+                        <span class="material-input"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group label-floating is-empty">
+                    <label class="bmd-label-floating">Addresse email</label>
+                    <input type="email" name="email" class="form-control">
+                    <span class="material-input"></span>
+                  </div>
+                  <div class="form-group label-floating is-empty">
+                    <label for="exampleMessage1" class="bmd-label-floating">Votre message</label>
+                    <textarea name="message" class="form-control" id="exampleMessage1" rows="6"></textarea>
+                    <span class="material-input"></span>
+                  </div>
+                </div>
+                <div class="card-footer justify-content-between">
+                  <button type="submit" class="btn btn-primary pull-right">Envoyé votre message</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   <!-- *********    END CONTACT US 1      ********* -->
+
+
+  <!--     *********    TESTIMONIALS 2     *********      -->
+  <div class="testimonials-2 section-dark">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div id="carouselExampleIndicatorss" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="card card-testimonial card-plain">
+                  <div class="card-avatar">
+                    <a href="#pablo">
+                      <img class="img" src="../../../assets/img/faces/marc.jpg">
+                    </a>
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-description">"I speak yell scream directly at the old guard on behalf of the future. I gotta say at that time I’d like to meet Kanye I speak yell scream directly at the old guard on behalf of the future. My brother Chance!!!
+                      <br>Thank you for letting me work on this masterpiece. One of my favorite people."
+                    </h5>
+                    <h4 class="card-title">Kendall Thompson</h4>
+                    <h6 class="card-category text-muted">CEO @ Marketing Digital Ltd.</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="card card-testimonial card-plain">
+                  <div class="card-avatar">
+                    <a href="#pablo">
+                      <img class="img" src="../../../assets/img/faces/marc.jpg">
+                    </a>
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-description">"Thank you Anna for the invite thank you to the whole Vogue team Called I Miss the Old Kanye At the God's last game Chop up the soul Kanye. I promise I will never let the people down. I want a better life for all!!! Pablo Pablo Pablo Pablo! Thank you Anna for the invite thank you to the whole Vogue team."
+                    </h5>
+                    <h4 class="card-title">Christian Louboutin</h4>
+                    <h6 class="card-category text-muted">Designer @ Louboutin &amp; Co.</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicatorss" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicatorss" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--     *********    END TESTIMONIALS 2      *********      -->
+</div>
+
+<app-footer-v></app-footer-v>
